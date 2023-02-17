@@ -6,7 +6,7 @@ from pymongo import MongoClient  # pymongo를 임포트 하기(패키지 인스�
 app = Flask(__name__)
 
 client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
-db = client.gw  # 'dbsparta'라는 이름의 db를 만들거나 사용합니다.
+db = client.gw  
 
 
 @app.route('/')
@@ -21,7 +21,7 @@ def post_memo():
    if len(now_data) == 0:
       num_receive = '1'
    else:
-      num_receive = str(now_data[-1]['card_num'] + 1)
+      num_receive = str(int(now_data[-1]['card_num']) + 1)
 
    memo = {'title': title_receive, 'text': text_receive, 'card_num': num_receive}
    db.memos.insert_one(memo)
